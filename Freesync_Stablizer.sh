@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Set the desired refresh rate (replace 60 with your target refresh rate)
-target_refresh_rate=60
+# Set the desired refresh rate (replace 144 with your target refresh rate)
+target_refresh_rate=144
 
 # Get the name of your display (you may need to adjust this)
 display_name=$(xrandr | grep " connected" | awk '{ print$1 }')
