@@ -24,9 +24,9 @@ function reload_graphics_driver() {
   echo "Unloading and reloading the graphics driver..."
   
   # Check if the driver module is loaded
-  if lsmod | grep -q "$amdgpu"; then
-    if modprobe -r "$amdgpu"; then
-      if modprobe "$amdgpu"; then
+  if lsmod | grep -q "amdgpu"; then
+    if modprobe -r "amdgpu"; then
+      if modprobe "amdgpu"; then
         echo "Graphics driver reloaded successfully."
       else
         echo "Failed to reload graphics driver."
@@ -37,7 +37,7 @@ function reload_graphics_driver() {
       exit 1
     fi
   else
-    echo "Driver module $amdgpu is not currently loaded."
+    echo "Driver module amdgpu is not currently loaded."
   fi
 }
 
@@ -45,7 +45,7 @@ function reload_graphics_driver() {
 driver_module="amdgpu"  # Replace with your actual driver module
 
 disable_shader_caching
-reload_graphics_driver "$amdgpu"
+reload_graphics_driver "amdgpu"
 
 echo "Shader stutter fix applied successfully."
 
