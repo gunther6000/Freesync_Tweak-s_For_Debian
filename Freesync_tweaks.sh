@@ -22,8 +22,17 @@ function disable_shader_caching() {
 function reload_graphics_driver() {
   local driver_module=$1
   echo "Unloading and reloading the graphics driver..."
-  modprobe -r "$amdgpu"
-  modprobe "$amdgpu"
+  if modprobe -r "$amdgpu"; then
+    if modprobe "$driver_module"; then
+      echo "Graphics driver reloaded successfully."
+    else
+      echo "Failed to reload graphics driver."
+      exit 1
+    fi
+  else
+    echo "Failed to unload graphics driver."
+    exit 1
+  fi
 }
 
 disable_shader_caching
