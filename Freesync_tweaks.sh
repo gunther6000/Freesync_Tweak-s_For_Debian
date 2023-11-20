@@ -22,8 +22,8 @@ function disable_shader_caching() {
 function reload_graphics_driver() {
   local driver_module=$1
   echo "Unloading and reloading the graphics driver..."
-  modprobe -r "$driver_module"
-  modprobe "$driver_module"
+  modprobe -r "$amdgpu"
+  modprobe "$amdgpu"
 }
 
 disable_shader_caching
