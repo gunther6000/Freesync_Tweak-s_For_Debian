@@ -20,26 +20,36 @@ function disable_shader_caching() {
 
 # Unload and reload the graphics driver (replace 'your_driver_module' with the actual driver module)
 function reload_graphics_driver() {
-  local driver_module=$1
+  local driver_module="$1"
   echo "Unloading and reloading the graphics driver..."
-  if modprobe -r "$amdgpu"; then
-    if modprobe "$driver_module"; then
-      echo "Graphics driver reloaded successfully."
+  
+  # Check if the driver module is loaded
+  if lsmod | grep -q "$driver_module"; then
+    if modprobe -r "$driver_module"; then
+      if modprobe "$driver_module"; then
+        echo "Graphics driver reloaded successfully."
+      else
+        echo "Failed to reload graphics driver."
+        exit 1
+      fi
     else
-      echo "Failed to reload graphics driver."
+      echo "Failed to unload graphics driver."
       exit 1
     fi
   else
-    echo "Failed to unload graphics driver."
-    exit 1
+    echo "Driver module $driver_module is not currently loaded."
   fi
 }
 
+# Specify the actual graphics driver module
+driver_module="amdgpu"  # Replace with your actual driver module
+
 disable_shader_caching
-reload_graphics_driver
+reload_graphics_driver "$driver_module"
 
 echo "Shader stutter fix applied successfully."
 
 # Optionally, you may want to reboot your system for changes to take effect
 #echo "Rebooting the system..."
 #reboot
+
