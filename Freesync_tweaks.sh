@@ -11,7 +11,11 @@ fi
 # Disable shader caching
 function disable_shader_caching() {
   echo "Disabling shader caching..."
-  echo 0 > /proc/sys/vm/nr_hugepages
+  if [ -e "/proc/sys/vm/nr_hugepages" ]; then
+    echo 0 > /proc/sys/vm/nr_hugepages
+  else
+    echo "File /proc/sys/vm/nr_hugepages does not exist."
+  fi
 }
 
 # Unload and reload the graphics driver (replace 'your_driver_module' with the actual driver module)
