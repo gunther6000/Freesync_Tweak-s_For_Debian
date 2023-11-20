@@ -14,8 +14,8 @@ echo 0 > /proc/sys/vm/nr_hugepages
 
 # Unload and reload the graphics driver (replace 'your_driver_module' with the actual driver module)
 echo "Unloading and reloading the graphics driver..."
-modprobe -r your_driver_module
-modprobe your_driver_module
+modprobe -r amdgpu
+modprobe amdgpu
 
 echo "Shader stutter fix applied successfully."
 
