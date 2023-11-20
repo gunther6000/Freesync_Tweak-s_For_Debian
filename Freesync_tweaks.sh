@@ -9,13 +9,20 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Disable shader caching
-echo "Disabling shader caching..."
-echo 0 > /proc/sys/vm/nr_hugepages
+function disable_shader_caching() {
+  echo "Disabling shader caching..."
+  echo 0 > /proc/sys/vm/nr_hugepages
+}
 
 # Unload and reload the graphics driver (replace 'your_driver_module' with the actual driver module)
-echo "Unloading and reloading the graphics driver..."
-modprobe -r amdgpu
-modprobe amdgpu
+function reload_graphics_driver() {
+  echo "Unloading and reloading the graphics driver..."
+  modprobe -r amdgpu
+  modprobe amdgpu
+}
+
+disable_shader_caching
+reload_graphics_driver
 
 echo "Shader stutter fix applied successfully."
 
