@@ -24,9 +24,9 @@ function reload_graphics_driver() {
   echo "Unloading and reloading the graphics driver..."
   
   # Check if the driver module is loaded
-  if lsmod | grep -q "$mesa"; then
-    if modprobe -r "$mesa"; then
-      if modprobe "$mesa"; then
+  if lsmod | grep -q "$driver_module"; then
+    if modprobe -r "$driver_module"; then
+      if modprobe "$driver_module"; then
         echo "Graphics driver reloaded successfully."
       else
         echo "Failed to reload graphics driver."
@@ -37,19 +37,18 @@ function reload_graphics_driver() {
       exit 1
     fi
   else
-    echo "Driver module $mesa is not currently loaded."
+    echo "Driver module $driver_module is not currently loaded."
   fi
 }
 
 # Specify the actual graphics driver module
-driver_module="$Mesa"  # Replace with your actual driver module
+driver_module="radeon"  # Replace with your actual driver module
 
 disable_shader_caching
-reload_graphics_driver "$mesa"
+reload_graphics_driver "$driver_module"
 
 echo "Shader stutter fix applied successfully."
 
 # Optionally, you may want to reboot your system for changes to take effect
 #echo "Rebooting the system..."
 #reboot
-
