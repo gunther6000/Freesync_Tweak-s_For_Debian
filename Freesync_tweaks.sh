@@ -42,7 +42,7 @@ function reload_graphics_driver() {
 }
 
 # Specify the actual graphics driver module
-driver_module="Mesa 23.2.1 refresh - kisak-mesa PPA"  # Replace with your actual driver module
+driver_module="amdgpu"  # Replace with your actual driver module
 
 disable_shader_caching
 reload_graphics_driver "$driver_module"
